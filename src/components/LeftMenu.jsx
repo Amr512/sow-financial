@@ -1,43 +1,43 @@
 const LeftMenu = () => {
   const menuData = [
     {
-      icon: "/src/assets/Mint.png",
-      content: "Mint NFTs",
+      icon: '/assets/Mint.png',
+      content: 'Mint NFTs',
       active: true,
     },
     {
-      icon: "/src/assets/material-symbols_trophy.png",
-      content: "Rewards",
+      icon: '/assets/material-symbols_trophy.png',
+      content: 'Rewards',
     },
     {
-      icon: "/src/assets/Seeding.png",
-      content: "Purchase SOW",
+      icon: '/assets/Seeding.png',
+      content: 'Purchase SOW',
     },
     {
-      icon: "/src/assets/ion_pricetag.png",
-      content: "SOW Price",
+      icon: '/assets/ion_pricetag.png',
+      content: 'SOW Price',
     },
     {
-      icon: "/src/assets/fluent_web-asset-16-filled.png",
-      content: "Assets",
+      icon: '/assets/fluent_web-asset-16-filled.png',
+      content: 'Assets',
     },
   ];
   return (
     <>
-      <div className="rounded-[10px] w-[310px]">
+      <div className='rounded-[10px] w-[310px]'>
         {menuData.map((data, i) => {
           const { content, icon, active } = data;
           return (
             <div
               className={`flex gap-[10px] py-[20px] ps-[26px] border-[#FFFFFF40]  first:border-b-0 last:rounded-b-[10px] ${
                 active
-                  ? "bg-[#35185F] rounded-t-[10px]"
-                  : "border-b-[0.2px] border-r-[0.2px] border-l-[0.2px] "
+                  ? 'bg-[#35185F] rounded-t-[10px]'
+                  : 'border-b-[0.2px] border-r-[0.2px] border-l-[0.2px] '
               }`}
               key={i}
             >
-              <img src={icon} alt="menu-icon" />
-              <p className="text-[20px] font-[600]">{content}</p>
+              <img src={icon} alt='menu-icon' />
+              <p className='text-[20px] font-[600]'>{content}</p>
             </div>
           );
         })}
