@@ -66,7 +66,7 @@ const SowPasses = () => {
             </div>
           </div>
           <div>
-            <button className='flex items-center gap-[10px] text-[12px] md:text-[20px] font-[600] uppercase bg-[#35185F;] rounded-[7px] px-[25px] md:px-[66px] py-[15px] mt-[10px] md:mt-[45px] w-[100%] justify-center'>
+            <button className='flex items-center gap-[10px] text-[12px] md:text-[20px] font-[600] uppercase bg-[#35185F;] rounded-[7px] px-[25px] md:px-[1vw] py-[15px] mt-[10px] md:mt-[45px] w-[100%] justify-center'>
               <img src='/assets/ic_baseline-email.png' alt='icon' />
               Continue with email
             </button>
