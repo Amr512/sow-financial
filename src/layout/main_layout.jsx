@@ -1,20 +1,20 @@
-import LeftMenu from "../components/LeftMenu";
-import PurchaseSow from "../components/PurchaseSow";
-import ROICalculator from "../components/ROICalculator";
-import Rewards from "../components/Rewards";
-import SowPasses from "../components/SowPasses";
-import SowPrice from "../components/SowPrice";
-import TreasuryAssets from "../components/TreasuryAssets";
+import LeftMenu from '../components/LeftMenu';
+import PurchaseSow from '../components/PurchaseSow';
+import ROICalculator from '../components/ROICalculator';
+import Rewards from '../components/Rewards';
+import SowPasses from '../components/SowPasses';
+import SowPrice from '../components/SowPrice';
+import TreasuryAssets from '../components/TreasuryAssets';
 
 const MainLayout = () => {
   return (
     <>
-      <div className="md:flex justify-between gap-[20px] mt-[56px]">
-        <div className="hidden md:block ">
+      <div className='grid grid-cols-1 md:grid-cols-[25%_75%]'>
+        <div className='hidden md:block '>
           <LeftMenu />
         </div>
-        <div className="w-[100%]">
-          <div className="md:flex gap-[20px] w-[100%]">
+        <div className=''>
+          <div className='md:flex gap-[20px] w-[100%]'>
             <SowPasses />
             <ROICalculator />
           </div>

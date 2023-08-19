@@ -3,7 +3,7 @@ const SowPasses = () => {
     <>
       <div className='rounded-[10px] border-[#FFFFFF40] border-[0.2px] w-[100%] md:w-[50%]  px-[35px] pt-[35px] pb-[45px] text-center gradient-card mb-[30px] md:mb-[0px]'>
         <div id='card-header'>
-          <div className='flex w-full justify-center items-center'>
+          <div className='flex items-center justify-center w-full'>
             <img src='/assets/logo-icon.png' alt='icon' />
           </div>
           <div>
@@ -66,7 +66,7 @@ const SowPasses = () => {
             </div>
           </div>
           <div>
-            <button className='flex items-center gap-[10px] text-[12px] md:text-[20px] font-[600] uppercase bg-[#35185F;] rounded-[7px] px-[45px] md:px-[66px] py-[15px] mt-[10px] md:mt-[45px] w-[100%] justify-center'>
+            <button className='flex items-center gap-[10px] text-[12px] md:text-[20px] font-[600] uppercase bg-[#35185F;] rounded-[7px] px-[25px] md:px-[66px] py-[15px] mt-[10px] md:mt-[45px] w-[100%] justify-center'>
               <img src='/assets/ic_baseline-email.png' alt='icon' />
               Continue with email
             </button>

@@ -50,7 +50,7 @@ const TreasuryAssets = () => {
         </h2>
 
         <div
-          className='flex gap-[3px] md:gap-[10px] justify-between'
+          className='flex gap-[3px] md:gap-[10px] justify-between flex-wrap'
           id='btn-container'
         >
           {buttonsData.map((data, i) => {
@@ -72,7 +72,7 @@ const TreasuryAssets = () => {
         <h2 className='my-[20px] md:my-[50px]  text-[14px] md:text-[30px] font-[600] text-center'>
           Total: $6M
         </h2>
-        <div className='flex w-full justify-center items-center relative'>
+        <div className='relative flex items-center justify-center w-full'>
           <h2 className='md:text-[40px] absolute top-[100px] md:top-[280px] left-[90px] md:left-[240px] z-[999999]'>
             $2M
           </h2>

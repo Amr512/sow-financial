@@ -24,7 +24,7 @@ const LeftMenu = () => {
   ];
   return (
     <>
-      <div className='rounded-[10px] w-[310px]'>
+      <div className='rounded-[10px] w-auto mr-[20px]'>
         {menuData.map((data, i) => {
           const { content, icon, active } = data;
           return (

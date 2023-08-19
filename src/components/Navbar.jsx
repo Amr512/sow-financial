@@ -4,7 +4,7 @@ const Navbar = () => {
 
   return (
     <>
-      <div className='lg:flex justify-between items-center hidden'>
+      <div className='items-center justify-between hidden lg:flex'>
         <div>
           <img src='/assets/logo.png' alt='logo' />
         </div>
@@ -26,9 +26,9 @@ const Navbar = () => {
 
       <div>
         <nav>
-          <section className='MOBILE-MENU flex justify-between items-center lg:hidden'>
+          <section className='flex items-center justify-between mb-6 MOBILE-MENU lg:hidden'>
             <div
-              className='HAMBURGER-ICON space-y-2'
+              className='space-y-2 HAMBURGER-ICON'
               onClick={() => setIsNavOpen((prev) => !prev)}
             >
               <span className='block w-8 h-0.5 bg-white'></span>
@@ -51,7 +51,7 @@ const Navbar = () => {
                 onClick={() => setIsNavOpen(false)}
               >
                 <svg
-                  className='h-8 w-8 text-gray-600'
+                  className='w-8 h-8 text-gray-600'
                   viewBox='0 0 24 24'
                   fill='none'
                   stroke='currentColor'
