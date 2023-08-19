@@ -4,7 +4,7 @@ const Navbar = () => {
 
   return (
     <>
-      <div className='items-center justify-between hidden lg:flex'>
+      <div className='items-center justify-between hidden mb-10 lg:flex'>
         <div>
           <img src='/assets/logo.png' alt='logo' />
         </div>
