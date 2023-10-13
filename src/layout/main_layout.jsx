@@ -23,8 +23,8 @@ const MainLayout = () => {
             <Rewards />
           </div>
 
-          <div>
-            <PurchaseSow id='mint' />
+          <div id='mint'>
+            <PurchaseSow />
           </div>
           <div>
             <SowPrice />
