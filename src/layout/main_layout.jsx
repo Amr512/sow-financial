@@ -24,7 +24,7 @@ const MainLayout = () => {
           </div>
 
           <div>
-            <PurchaseSow />
+            <PurchaseSow id='mint' />
           </div>
           <div>
             <SowPrice />
