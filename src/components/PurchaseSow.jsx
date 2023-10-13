@@ -83,7 +83,7 @@ const PurchaseSow = () => {
     abi:erc20ABI,
     address:USDC_ADDRESS,
     functionName:"approve",
-    args:[SOW_CONTRACT_ADDRESS, 0]//BigInt(amount) * BigInt(price)],
+    args:[SOW_CONTRACT_ADDRESS, BigInt(amount) * BigInt(price)],
   })
 
   
@@ -182,7 +182,7 @@ const PurchaseSow = () => {
             </div>
           </div>
 
-          {allowance > totalPrice? <button onClick={()=> approveUSDC()} className='text-[12px] md:text-[20px] font-[600] uppercase bg-[#821DFE] rounded-[7px] px-[1vw] py-[10px] md:py-[20px] text-center w-[100%]'>
+          {allowance < totalPrice? <button onClick={()=> approveUSDC()} className='text-[12px] md:text-[20px] font-[600] uppercase bg-[#821DFE] rounded-[7px] px-[1vw] py-[10px] md:py-[20px] text-center w-[100%]'>
             Approve {formatEther(totalPrice)} USDC to mint {amount} SOW
           </button>:<button onClick={()=> mint()} className='text-[12px] md:text-[20px] font-[600] uppercase bg-[#821DFE] rounded-[7px] px-[1vw] py-[10px] md:py-[20px] text-center w-[100%]'>
             Mint {amount.toString()} SOW for {formatEther(totalPrice)} USDC
