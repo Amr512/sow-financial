@@ -1,9 +1,19 @@
 import { useState } from 'react';
+
+import { ConnectKitButton } from 'connectkit';
+
+
 const Navbar = () => {
   const [isNavOpen, setIsNavOpen] = useState(false);
 
+
+
+  
+
+
   return (
     <>
+      
       <div className='items-center justify-between hidden mb-10 lg:flex'>
         <div>
           <img src='/assets/logo.png' alt='logo' />
@@ -17,10 +27,11 @@ const Navbar = () => {
           </ul>
         </div>
         <div>
-          <button className='flex items-center gap-[10px] px-[25px] py-[15px] bg-[#821DFE] rounded-[7px] font-[600] uppercase'>
+        <ConnectKitButton customTheme/>
+           {/* <button className='flex items-center gap-[10px] px-[25px] py-[15px] bg-[#821DFE] rounded-[7px] font-[600] uppercase'>
             <img src='/assets/Vector.png' alt='icon' />
-            Connect a wallet
-          </button>
+            {connectText}
+          </button>  */}
         </div>
       </div>
 
@@ -36,14 +47,15 @@ const Navbar = () => {
               <span className='block w-5 h-0.5 bg-white'></span>
             </div>
             <div>
-              <button className='flex text-[10px] items-center gap-[10px] px-[12px] py-[10px] bg-[#821DFE] rounded-[7px] font-[600] uppercase'>
+              <ConnectKitButton/>
+              {/* <button className='flex text-[10px] items-center gap-[10px] px-[12px] py-[10px] bg-[#821DFE] rounded-[7px] font-[600] uppercase'>
                 <img
                   src='/assets/Vector.png'
                   alt='icon'
                   className='w-[10px] h-[8px]'
                 />
-                Connect a wallet
-              </button>
+                {connectText}
+              </button> */}
             </div>
             <div className={isNavOpen ? 'showMenuNav' : 'hideMenuNav'}>
               <div

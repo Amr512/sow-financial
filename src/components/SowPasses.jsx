@@ -1,4 +1,33 @@
+import { useContractWrite, usePrepareContractWrite, useAccount, useContractRead, erc20ABI, useBalance, useTransaction, useWaitForTransaction } from "wagmi";
+import { useEffect, useState } from "react";
+import { formatEther } from "viem";
+import { SOW_ABI, SOW_CONTRACT_ADDRESS, USDC_ADDRESS } from "../contracts/contractConfigs";
+
 const SowPasses = () => {
+  const [price, setPrice] = useState(0)
+  const [amount, setAmount] = useState(1)
+  const [totalPrice, setTotalPrice] = useState(0)
+
+
+  const {isFetching:isFetchingPrice, refetch:refetchPrice} = useContractRead({
+    abi:SOW_ABI,
+    address:SOW_CONTRACT_ADDRESS,
+    functionName:"costInUsdc",
+    onSuccess: (data) => {
+      setPrice(formatEther(data))
+    }
+  })
+
+
+
+  useEffect(()=>{
+    setTotalPrice(amount * price)
+  }, [amount,price])
+
+
+
+
+
   return (
     <>
       <div className='rounded-[10px] border-[#FFFFFF40] border-[0.2px] w-[100%] md:w-[50%]  px-[35px] pt-[35px] pb-[45px] text-center gradient-card mb-[30px] md:mb-[0px]'>
@@ -38,6 +67,7 @@ const SowPasses = () => {
               <select
                 name='quantity'
                 className='sel w-[66px] bg-[#2A104D] rounded-[3px] text-center border-[0.2px] border-[#FFFFFF40] h-[30px] pr-[10px]'
+                onChange={(e)=>setAmount(e.target.value)}
               >
                 <option value='1'>1</option>
                 <option value='2'>2</option>
@@ -48,11 +78,7 @@ const SowPasses = () => {
             </div>
             <div className='flex justify-between mb-[13px] md:mb-[20px]'>
               <p className='font-[500] leading-[26px]'>Item Cost</p>
-              <p className='font-[500] leading-[26px]'>$25.00</p>
-            </div>
-            <div className='flex justify-between mb-[13px] md:mb-[20px]'>
-              <p className='font-[500] leading-[26px]'>Item Cost</p>
-              <p className='font-[500] leading-[26px]'>$25.00</p>
+              <p className='font-[500] leading-[26px]'>${price}</p>
             </div>
             <div className='flex justify-between mb-[13px] md:mb-[20px]'>
               <p className='font-[500] leading-[26px]'>Fees</p>
@@ -62,13 +88,17 @@ const SowPasses = () => {
             </div>
             <div className='flex justify-between pt-[20px] border-t-[0.2px]'>
               <p className='font-[500] leading-[26px]'>Subtotal</p>
-              <p className='font-[400] leading-[26px]'>$25.00</p>
+              <p className='font-[400] leading-[26px]'>${totalPrice}</p>
             </div>
           </div>
           <div>
-            <button className='flex items-center gap-[10px] text-[12px] md:text-[20px] font-[600] uppercase bg-[#35185F;] rounded-[7px] px-[25px] md:px-[1vw] py-[15px] mt-[10px] md:mt-[45px] w-[100%] justify-center'>
-              <img src='/assets/ic_baseline-email.png' alt='icon' />
-              Continue with email
+            <button onClick={()=>{
+              //scroll to item 
+              const mint = document.getElementById('mint')
+              mint.scrollIntoView()
+            }} className='flex items-center gap-[10px] text-[12px] md:text-[20px] font-[600] uppercase bg-[#35185F;] rounded-[7px] px-[25px] md:px-[1vw] py-[15px] mt-[10px] md:mt-[45px] w-[100%] justify-center'>
+              {/* <img src='/assets/ic_baseline-email.png' alt='icon' /> */}
+              Continue To Mint
             </button>
           </div>
         </div>
