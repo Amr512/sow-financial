@@ -3,7 +3,6 @@ import { SOW_ABI, SOW_CONTRACT_ADDRESS, USDC_ADDRESS } from "../contracts/contra
 import { useEffect } from "react";
 import { useState } from "react";
 import { formatEther } from "viem";
-import { useSearchParams } from "react-router-dom";
 const PurchaseSow = () => {
 
   const [allowance, setAllowance] = useState(BigInt(0))
