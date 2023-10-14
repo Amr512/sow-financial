@@ -14,6 +14,8 @@ const PurchaseSow = () => {
   const [USDCBalance, setUSDCBalance] = useState(0)
   const [totalSupply, setTotalSupply] = useState(0)
   const [maxSupply, setMaxSupply] = useState(0)
+  const [errorMessage, setErrorMessage] = useState('')
+  const [showError, setShowError] = useState(false)
   const {address} = useAccount()
 
   //an ugly amount of read requests, could be batched
@@ -22,7 +24,7 @@ const PurchaseSow = () => {
     onSuccess: (data) => {
     setBalance(data)
   }});
-  const {isFetching, refetch} = useContractRead({
+  const {isFetching, refetch:refetchAllowance} = useContractRead({
     abi:erc20ABI,
     address:USDC_ADDRESS,
     functionName:"allowance",
@@ -41,7 +43,7 @@ const PurchaseSow = () => {
     }
   })
 
-  const {isFetching:isFetchingSOW, refetch:refetchSOW} = useContractRead({
+  const {isFetching:isFetchingSOWBalance, refetch:refetchSOWBalance} = useContractRead({
     abi:SOW_ABI,
     address:SOW_CONTRACT_ADDRESS,
     functionName:"balanceOf",
@@ -79,28 +81,44 @@ const PurchaseSow = () => {
     setTotalPrice(BigInt(amount) * BigInt(price))
   }, [amount,price])
 
-  const {config:approveTx} = usePrepareContractWrite({
+  const {config:approveTx, refetch:refetchApproveTx} = usePrepareContractWrite({
     abi:erc20ABI,
     address:USDC_ADDRESS,
     functionName:"approve",
     args:[SOW_CONTRACT_ADDRESS, BigInt(amount) * BigInt(price)],
+    onError:(error)=>{
+      setErrorMessage(error.message)
+    },
+    onSuccess:(data)=>{
+      setShowError(false)
+    }
+    
   })
 
   
   const {write:approveUSDC, data:approveData} = useContractWrite(approveTx)
   const {data:approveReceipt } = useWaitForTransaction({hash:approveData?.hash, onSuccess:(data)=>{
     //todo: replace with a better alert modal
-    alert('Successfully Approved USDC')
+    approveData.hash = null
+    refetchAllowance()
+    refetchMintTx()
+    alert('(todo: replace with better alert modal)\nSuccessfully Approved USDC!')
   },onError:(error)=>{
     //todo: replace with a better alert modal
     alert(error.message)
   }})
 
-  const {config:mintTx} = usePrepareContractWrite({
+  const {config:mintTx, refetch:refetchMintTx} = usePrepareContractWrite({
     abi:SOW_ABI,
     address:SOW_CONTRACT_ADDRESS,
     functionName:'MintInToken',
     args:[amount],
+    onError:(error)=>{
+      setErrorMessage(error.message)
+    },
+    onSuccess:(data)=>{
+      setShowError(false)
+    }
   })
 
 
@@ -108,7 +126,9 @@ const PurchaseSow = () => {
 
   const {data:mintReceipt } = useWaitForTransaction({hash:mintData?.hash, onSuccess:(data)=>{
     //todo: replace with a better alert modal
-    alert('Successfully Minted SOW!')
+    mintData.hash = null
+    refetchSOWBalance()
+    alert('(todo: replace with better alert modal)\nSuccessfully Minted SOW!')
   },onError:(error)=>{
     //todo: replace with a better alert modal
     alert(error.message)
@@ -118,7 +138,7 @@ const PurchaseSow = () => {
     <>
       <div>
         <h2 className='uppercase font-[900] text-[24px] md:text-[48px] mt-[40px] md:mt-[100px] mb-[20px] md:mb-[50px]'>
-          Purchase SOW
+          Purchase a SOW Fund Pass
         </h2>
 
         <div className='rounded-[20px] border-[#FFFFFF40] border-[0.2px] gradient-card px-[30px] md:px-[50px] py-[28px] md:py-[70px] text-center'>
@@ -182,11 +202,22 @@ const PurchaseSow = () => {
             </div>
           </div>
 
-          {allowance < totalPrice? <button onClick={()=> approveUSDC()} className='text-[12px] md:text-[20px] font-[600] uppercase bg-[#821DFE] rounded-[7px] px-[1vw] py-[10px] md:py-[20px] text-center w-[100%]'>
+          {allowance < totalPrice? 
+          <button onClick={()=> approveUSDC()} className='text-[12px] md:text-[20px] font-[600] uppercase bg-[#821DFE] rounded-[7px] px-[1vw] py-[10px] md:py-[20px] text-center w-[100%]'>
             Approve {formatEther(totalPrice)} USDC to mint {amount} SOW
-          </button>:<button onClick={()=> mint()} className='text-[12px] md:text-[20px] font-[600] uppercase bg-[#821DFE] rounded-[7px] px-[1vw] py-[10px] md:py-[20px] text-center w-[100%]'>
-            Mint {amount.toString()} SOW for {formatEther(totalPrice)} USDC
-          </button>}
+          </button>
+          :
+          (USDCBalance <totalPrice?<button className='text-[12px]  hover:cursor-not-allowed md:text-[20px] font-[600] uppercase bg-[#821DFE50] rounded-[7px] px-[1vw] py-[10px] md:py-[20px] text-center w-[100%]'>
+            Insufficient USDC Balance
+          </button>
+          :
+          <button onClick={()=> {
+            setShowError(true)
+            mint()
+            }} className='text-[12px] md:text-[20px] font-[600] uppercase bg-[#821DFE] rounded-[7px] px-[1vw] py-[10px] md:py-[20px] text-center w-[100%]'>
+            Mint {amount.toString()} Fund Pass
+          </button>)}
+          <p className='text-[8px] md:text-[18px] '>{(showError && errorMessage)||''}</p>
 
           {/* <button className='text-[12px] md:text-[20px]  font-[600] uppercase bg-[#35185F;] rounded-[7px] px-[1vw] py-[10px] md:py-[20px] mt-[16px] md:mt-[45px] w-[100%]'>
             Mint with credit card

@@ -24,36 +24,36 @@ export const options = {
   responsive: true,
   plugins: {
     legend: {
-        display:false,
+      display: false,
     },
   },
   scales: {
     x: {
       grid: {
         color: (context) => {
-            if(context.tick.$context.index === 0){
-                return '#FFFFFF'
-            }else{
-                return '#FFFFFF00'
-            }
+          if (context.tick.$context.index === 0) {
+            return '#FFFFFF'
+          } else {
+            return '#FFFFFF00'
+          }
         },
-        
+
       },
       ticks: {
         color: "#FFFFFF",
         font: {
-            size:'16px'
+          size: '16px'
         }
       },
     },
     y: {
       grid: {
         color: (context) => {
-            if(context.tick.$context.index === 0){
-                return '#FFFFFF'
-            }else{
-                return '#373737'
-            }
+          if (context.tick.$context.index === 0) {
+            return '#FFFFFF'
+          } else {
+            return '#373737'
+          }
         },
       },
       ticks: {
@@ -62,7 +62,7 @@ export const options = {
         },
         color: "#FFFFFF",
         font: {
-            size:'16px'
+          size: '16px'
         }
       },
     },
@@ -94,5 +94,35 @@ export const data = {
 };
 
 export function LineChart() {
-  return <Line options={options} data={data} />;
+
+  return (
+    <>
+      {/* make iframe fill parent container */}
+      <style dangerouslySetInnerHTML={{
+        __html: `
+    #dexscreener-embed{
+      position:relative;
+      width:100%;
+      padding-bottom:125%;
+    }
+    @media(min-width:1400px){
+      #dexscreener-embed
+      {padding-bottom:65%;
+      }
+    }
+    #dexscreener-embed iframe{
+      position:absolute;
+      width:100%;
+      height:100%;
+      top:0;
+      left:0;
+      border:0;
+      border-radius:24px;}
+    `}} />
+      <div id="dexscreener-embed" >
+        <iframe src="https://dexscreener.com/bsc/0xf41723395ABE6e1D9D9c2D0CCF4e3839A8E637d6?embed=1&theme=dark&trades=0&info=0" />
+      </div>
+    </>
+  )
+  //<Line options={options} data={data} />;
 }
